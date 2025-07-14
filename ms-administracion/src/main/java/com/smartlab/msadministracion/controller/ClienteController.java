@@ -41,4 +41,10 @@ public class ClienteController {
                 .body(clienteService.obtenerTodos());
     }
 
+    @GetMapping("/findByRuc/{ruc}")
+    public ResponseEntity<ClienteDto> obtenerPorRuc(@PathVariable String ruc) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(clienteService.obtenerPorRuc(ruc));
+    }
 }

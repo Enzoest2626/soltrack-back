@@ -9,6 +9,7 @@ public class ClienteDto {
     private Long idCliente;
     private String ruc;
     private String razonSocial;
+    private String nombreComercial;
     private Integer estado;
     private String usuaCrea;
     private Timestamp dateCreate;

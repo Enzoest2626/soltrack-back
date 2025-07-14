@@ -22,7 +22,7 @@ public class JWTServiceImpl implements JWTService {
 
         return Jwts.builder().setSubject(userDetails.getUsername())     //le brindamos el usuario
                 .setIssuedAt(new Date(System.currentTimeMillis())) //fecha de creacion
-                .setExpiration(new Date(System.currentTimeMillis() + 120000))
+                .setExpiration(new Date(System.currentTimeMillis() + 12000000000L))
                 .addClaims(rolesClaim)
                 //fecha de expiración
                 .signWith(getSignKey(), SignatureAlgorithm.HS256) // la firma

@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class RequestCliente {
-    private String numRuc;
+    private String ruc;
+    private String nombreComercial;
 }
