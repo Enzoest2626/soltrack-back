@@ -13,4 +13,6 @@ public interface ClienteService {
     Optional<ClienteDto> obtenerCliente(Long id);
 
     List<ClienteDto> obtenerTodos();
+
+    ClienteDto obtenerPorRuc(String ruc);
 }

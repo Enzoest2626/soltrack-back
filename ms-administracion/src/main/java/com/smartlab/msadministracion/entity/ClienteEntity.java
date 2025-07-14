@@ -17,6 +17,8 @@ public class ClienteEntity {
     private String ruc;
     @Column(name = "razon_social", nullable = false, length = 200)
     private String razonSocial;
+    @Column(name = "nombre_comercial", length = 50)
+    private String nombreComercial;
     @Column(name = "estado", nullable = false)
     private Integer estado;
     @Column(name = "usua_create", length = 45)

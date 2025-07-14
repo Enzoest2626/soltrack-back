@@ -34,6 +34,14 @@ public class LubricanteServiceImpl implements LubricanteService {
         lubricante.setEstado(1);
         lubricante.setUsuaCrea(obtenerUsuario(username).getIdUsuario().toString());
         lubricante.setDateCreate(getTimestamp());
+        lubricante.setCodigoLub(requestLubricante.getCodigoLub());
+        lubricante.setFabricante(requestLubricante.getFabricante());
+        lubricante.setTipoLubricante(requestLubricante.getTipoLubricante());
+        lubricante.setViscosidad(requestLubricante.getViscosidad());
+        lubricante.setDensidad(requestLubricante.getDensidad());
+        lubricante.setPuntoIgnicion(requestLubricante.getPuntoIgnicion());
+        lubricante.setRecomendaciones(requestLubricante.getRecomendaciones());
+        lubricante.setObservaciones(requestLubricante.getObservaciones());
         return lubricante;
     }
 

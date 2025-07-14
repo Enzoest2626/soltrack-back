@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -14,8 +15,33 @@ public class LubricanteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_lubricante")
     private Long idLub;
-    @Column(name = "nombre_lub", nullable = false, length = 200)
+    @Column(name = "nombre_lub")
     private String nombreLub;
+
+    @Column(name = "codigo_lub")
+    private String codigoLub;
+
+    @Column(name = "fabricante")
+    private String fabricante;
+
+    @Column(name = "tipo_lubricante")
+    private String tipoLubricante;
+
+    @Column(name = "viscosidad")
+    private String viscosidad;
+
+    @Column(name = "densidad")
+    private BigDecimal densidad;;
+
+    @Column(name = "punto_ignicion")
+    private BigDecimal puntoIgnicion;
+
+    @Column(name = "recomendaciones")
+    private String recomendaciones;
+
+    @Column(name = "observaciones")
+    private String observaciones;
+
     @Column(name = "estado", nullable = false)
     private Integer estado;
     @Column(name = "usua_create", length = 45)

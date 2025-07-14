@@ -37,9 +37,18 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteDto crearCliente(RequestCliente requestCliente, String username) {
-        ResponseSunat datosSunat = getExecutionSunat(requestCliente.getNumRuc());
+        validations(requestCliente);
+        ResponseSunat datosSunat = getExecutionSunat(requestCliente.getRuc());
         ClienteEntity clienteGuardado = clienteRepository.save(getEntity(datosSunat, requestCliente, username));
         return clienteMapper.mapToDto(clienteGuardado);
+    }
+
+    private void validations(RequestCliente requestCliente) {
+        Optional<ClienteEntity> entity = clienteRepository.findByRuc(requestCliente.getRuc());
+
+        if (entity.isPresent()) {
+            throw new RuntimeException("El RUC ya se encuentra registrado");
+        }
     }
 
     @Override
@@ -67,6 +76,11 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteDtoList;
     }
 
+    @Override
+    public ClienteDto obtenerPorRuc(String ruc) {
+        return mapToDtoBySunat(getExecutionSunat(ruc));
+    }
+
 
     private ClienteEntity getEntity(ResponseSunat sunat,
                                     RequestCliente requestCliente,
@@ -75,11 +89,19 @@ public class ClienteServiceImpl implements ClienteService {
         ClienteEntity entity = new ClienteEntity();
         entity.setRuc(sunat.getNumeroDocumento());
         entity.setRazonSocial(sunat.getRazonSocial());
+        entity.setNombreComercial(requestCliente.getNombreComercial());
         entity.setEstado(1);
         entity.setUsuaCrea(usuario.getIdUsuario().toString());
         entity.setDateCreate(getTimestamp());
         return entity;
 
+    }
+
+    private ClienteDto mapToDtoBySunat(ResponseSunat sunat) {
+        ClienteDto clienteDto = new ClienteDto();
+        clienteDto.setRuc(sunat.getNumeroDocumento());
+        clienteDto.setRazonSocial(sunat.getRazonSocial());
+        return clienteDto;
     }
 
 
