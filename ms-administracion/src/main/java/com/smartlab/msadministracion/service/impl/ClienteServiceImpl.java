@@ -21,6 +21,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -68,9 +69,18 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public List<ClienteDto> obtenerTodos() {
         List<ClienteDto> clienteDtoList = new ArrayList<>();
-        List<ClienteEntity> entities = clienteRepository.findByEstado(1);
-        for(ClienteEntity clienteEntity:entities){
+        List<ClienteEntity> entities = clienteRepository.findAll();
+        List<Long> idsUsuarios = entities.stream().map(ClienteEntity::getIdCliente).toList();
+        List<UsuarioEntity> usuarios = usuarioRepository.findAllById(idsUsuarios);
+
+        for(ClienteEntity clienteEntity:entities) {
             ClienteDto clienteDTO = clienteMapper.mapToDto(clienteEntity);
+            usuarios.stream()
+                    .filter(u -> u.getIdUsuario().toString().equals(clienteEntity.getUsuaCrea()))
+                    .findFirst().
+                    ifPresent(u -> {;
+                        clienteDTO.setUsuaCrea(u.getNombres());
+                    });
             clienteDtoList.add(clienteDTO);
         }
         return clienteDtoList;

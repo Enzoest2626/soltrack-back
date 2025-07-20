@@ -2,6 +2,7 @@ package com.smartlab.msadministracion.service.impl;
 
 import com.smartlab.msadministracion.aggregates.dto.LubricanteDto;
 import com.smartlab.msadministracion.aggregates.request.RequestLubricante;
+import com.smartlab.msadministracion.entity.ClienteEntity;
 import com.smartlab.msadministracion.entity.LubricanteEntity;
 import com.smartlab.msadministracion.entity.UsuarioEntity;
 import com.smartlab.msadministracion.mapper.LubricanteMapper;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -26,6 +29,25 @@ public class LubricanteServiceImpl implements LubricanteService {
         LubricanteEntity lubricanteCreado = obtenerLubricanteCreado(requestLubricante, username);
         lubricanteRepository.save(lubricanteCreado);
         return lubricanteMapper.mapToDto(lubricanteCreado);
+    }
+
+    @Override
+    public List<LubricanteDto> obtenerTodos() {
+        List<LubricanteDto> response = new ArrayList<>();
+        List<LubricanteEntity> lubricantes = lubricanteRepository.findAll();
+        List<Long> idsUsuarios = lubricantes.stream().map(lubricanteEntity -> Long.valueOf(lubricanteEntity.getUsuaCrea())).toList();
+        List<UsuarioEntity> usuarios = usuarioRepository.findAllById(idsUsuarios);
+
+        for(LubricanteEntity lubricanteEntity:lubricantes) {
+            LubricanteDto dto = lubricanteMapper.mapToDto(lubricanteEntity);
+            usuarios.stream()
+                    .filter(u -> u.getIdUsuario().toString().equals(lubricanteEntity.getUsuaCrea()))
+                    .findFirst()
+                    .ifPresent(entity -> dto.setUsuaCrea(entity.getNombres()));
+            response.add(dto);
+        }
+
+        return response;
     }
 
     private LubricanteEntity obtenerLubricanteCreado(RequestLubricante requestLubricante, String username){
