@@ -5,5 +5,10 @@
     <file url="file://$PROJECT_DIR$/discovery-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms-administracion/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms-login/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-registrar-muestra/application/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-registrar-muestra/domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-registrar-muestra/infraestructure/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-registrar-muestra/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-registrar-muestra/src/main/resources" charset="UTF-8" />
   </component>
 </project>

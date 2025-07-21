@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/ms-registrar-muestra/application/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/ms-registrar-muestra/domain/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/ms-registrar-muestra/infraestructure/src/main/resources/archetype-resources" includeSubdirectories="true" />
+    </excludeFromCompile>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="application" />
+        <module name="domain" />
+        <module name="infraestructure" />
         <module name="api-gateway" />
         <module name="ms-administracion" />
         <module name="ms-login" />
@@ -17,7 +25,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
+      <module name="application" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
+      <module name="domain" options="-parameters" />
+      <module name="infraestructure" options="-parameters" />
       <module name="ms-administracion" options="-parameters" />
       <module name="ms-login" options="-parameters" />
     </option>
