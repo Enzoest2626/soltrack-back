@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,8 +44,9 @@ public class ClienteFilter extends AbstractGatewayFilterFactory<ClienteFilter.Co
 
                     List<String> roles = jwtUtil.extractRoles(authHeader);
                     System.out.println(roles);
-                    System.out.println(config.getRol());
-                    if(roles.contains(config.getRol())){
+                    System.out.println(config.getRoles());
+                    boolean permitted = roles.stream().anyMatch(role -> config.getRoles().contains(role));
+                    if(permitted){
                         request = exchange.getRequest()
                                 .mutate()
                                 .header("LoggedInUser", jwtUtil.extractUserName(authHeader))
@@ -64,6 +66,6 @@ public class ClienteFilter extends AbstractGatewayFilterFactory<ClienteFilter.Co
     }
     @Data
     public static class Config{
-        private String rol;
+        private List<String> roles = new ArrayList<>();
     }
 }
